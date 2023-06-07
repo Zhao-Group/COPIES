@@ -1,0 +1,10 @@
+protobuf<3.20,>=3.9.2
+Bio==1.3.9
+distance==0.1.3
+numpy==1.22.4
+onnxruntime==1.11.1
+pandas==1.4.2
+scann==1.2.6
+scikit_learn==1.2.2
+sklearn-pmml-model==1.0.2
+bokeh==3.1.1
