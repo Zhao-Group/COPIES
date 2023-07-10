@@ -1,8 +1,21 @@
 """
  Copyright 2022 University of Illinois Board of Trustees. All Rights Reserved.
  Carl R. Woese Institute for Genomic Biology
- This file is part of COPIES, which is released under specific terms.  See file License.txt file for full license details.
+ This file is part of COPIES, which is released under specific terms.  See file 'LICENSE' for full license details.
 """
+
+################################################################### 
+## Primary Author:  Aashutosh Girish Boob aboob2@illinois.edu
+## Co-Authors: Vassily Andrew Petrov vassily2@illinois.edu
+## License: Apache License 2.0
+## Repository:  https://github.com/HuiminZhao/COPIES
+###################################################################
+
+## Credit: parts of this code make use of the code or pre-trained models from
+##    - https://github.com/USDA-ARS-GBRU/GuideMaker
+##    - https://github.com/H2muller/CROPSR
+##    - https://github.com/dDipankar/DeepGuide
+##    - https://github.com/zhangchonglab/sgRNA-cleavage-activity-prediction
 
 import random,sys,os
 
