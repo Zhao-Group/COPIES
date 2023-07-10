@@ -1,5 +1,5 @@
 """
- Copyright 2022 University of Illinois Board of Trustees. All Rights Reserved.
+ Copyright 2023 University of Illinois Board of Trustees. All Rights Reserved.
  Carl R. Woese Institute for Genomic Biology
  This file is part of CRISPR-COPIES, which is released under specific terms.  See file 'LICENSE' for more details.
 """
