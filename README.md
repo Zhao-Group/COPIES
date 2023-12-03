@@ -4,7 +4,7 @@
 ![Summary](figs/GA.png)
 
 ### THE PAPER!
-This repository accompanies the work ["CRISPR-COPIES: An in silico platform for discovery of neutral integration sites for CRISPR/Cas-facilitated gene integration"](https://www.google.com).
+This repository accompanies the work ["CRISPR-COPIES: An in silico platform for discovery of neutral integration sites for CRISPR/Cas-facilitated gene integration"](https://www.biorxiv.org/content/10.1101/2023.09.06.556564v1.abstract).
 
 ### Web Application
 You can use `CRISPR-COPIES` through our web interface. Visit us at [CRISPR-COPIES](https://biofoundry.web.illinois.edu/copies/). 
