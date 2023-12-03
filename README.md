@@ -53,6 +53,6 @@ Detailed information and sample values of parameters for different organisms is 
 <summary>If you use this tool, please cite us:</summary>
 
 ```bibtex
-
+Boob, Aashutosh Girish, et al. "CRISPR-COPIES: An in silico platform for discovery of neutral integration sites for CRISPR/Cas-facilitated gene integration." bioRxiv (2023): 2023-09.
 ```
 </details>
