@@ -21,9 +21,16 @@ import random,sys,os
 
 #paths
 # directories will be relative to script source.
-temporary = "../ncbi-blast-2.12.0+/tmp/"
 deg_file = '../essential_genes/deg.csv'
-blast_path = os.getcwd() + '/ncbi-blast-2.12.0+/bin/'
+
+blast_path = ''
+if not any(os.access(os.path.join(path, 'blastp'), os.X_OK) for path in os.environ["PATH"].split(os.pathsep)):
+    blast_path = os.path.join(os.getcwd(), 'ncbi-blast-2.12.0+/bin/')
+
+temporary = os.environ.get('TMP_DIR', '../ncbi-blast-2.12.0+/tmp/')
+
+print(blast_path)
+print(temporary)
 
 #Modules
 import numpy as np

@@ -8,3 +8,4 @@ scann==1.2.6
 scikit_learn==1.2.2
 sklearn-pmml-model==1.0.2
 bokeh==3.1.1
+biopython==1.79
