@@ -22,15 +22,22 @@ import random,sys,os
 #paths
 # directories will be relative to script source.
 deg_file = '../essential_genes/deg.csv'
-
-blast_path = ''
-if not any(os.access(os.path.join(path, 'blastp'), os.X_OK) for path in os.environ["PATH"].split(os.pathsep)):
-    blast_path = os.path.join(os.getcwd(), 'ncbi-blast-2.12.0+/bin/')
-
 temporary = os.environ.get('TMP_DIR', '../ncbi-blast-2.12.0+/tmp/')
 
-print(blast_path)
-print(temporary)
+blast_path = ''
+
+# Check if blastp is in the PATH
+found_blastp = False
+for path in os.environ["PATH"].split(os.pathsep):
+    if os.access(os.path.join(path, 'blastp'), os.X_OK):
+        blast_path = path
+        found_blastp = True
+        break
+
+if not found_blastp:
+    blast_path = os.path.join(os.getcwd(), 'ncbi-blast-2.12.0+/bin/')
+else:
+    blast_path = os.path.join(blast_path, '')
 
 #Modules
 import numpy as np
