@@ -33,8 +33,11 @@ python code/main.py -h
 ```
 A sample example to run the script - 
 ```
-python code/main.py -g ../data/s288c/GCF_000146045.2_R64_genomic.fna -t ../data/s288c/GCF_000146045.2_R64_feature_table.txt -p NGG -o 3prime -l 20 -sl 10 --edit_dist 6 --intspace 350 -out ../data/s288c/output.csv --distal_end_len 10000 -hr_l 50 --protein_file ../data/s288c/GCF_000146045.2_R64_protein.faa --blast_org 'Saccharomyces cerevisiae'
+python code/main.py -g ../data/s288c/GCF_000146045.2_R64_genomic.fna -t ../data/s288c/GCF_000146045.2_R64_feature_table.txt -p NGG -o 3prime -l 20 -sl 10 --edit_dist 6 --intspace 350 -out ../data/s288c/output.csv --distal_end_len 10000 -hr_l 50 --protein_file ../data/s288c/GCF_000146045.2_R64_protein.faa --blast_org 'Saccharomyces cerevisiae' -n 4
 ```
+
+Utilizing more processors (n >= 4) is recommended for faster BLAST operations.
+
 To create an interactive visualization of the output, run  -
 ```
 python code/create_viz.py

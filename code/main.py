@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
  Copyright 2023 University of Illinois Board of Trustees. All Rights Reserved.
  Carl R. Woese Institute for Genomic Biology
@@ -21,9 +23,23 @@ import random,sys,os
 
 #paths
 # directories will be relative to script source.
-temporary = "../ncbi-blast-2.12.0+/tmp/"
 deg_file = '../essential_genes/deg.csv'
-blast_path = os.getcwd() + '/ncbi-blast-2.12.0+/bin/'
+temporary = os.environ.get('TMP_DIR', '../ncbi-blast-2.12.0+/tmp/')
+
+blast_path = ''
+
+# Check if blastp is in the PATH
+found_blastp = False
+for path in os.environ["PATH"].split(os.pathsep):
+    if os.access(os.path.join(path, 'blastp'), os.X_OK):
+        blast_path = path
+        found_blastp = True
+        break
+
+if not found_blastp:
+    blast_path = os.path.join(os.getcwd(), 'ncbi-blast-2.12.0+/bin/')
+else:
+    blast_path = os.path.join(blast_path, '')
 
 #Modules
 import numpy as np
@@ -42,7 +58,6 @@ from Bio.SeqUtils import MeltingTemp
 import Bio.SeqUtils.MeltingTemp as Tm
 import doench_predict
 import sys
-import multiprocessing as mp
 import math
 from sklearn.ensemble import GradientBoostingRegressor  #GBM algorithm
 from scipy.stats import spearmanr, pearsonr
@@ -54,8 +69,6 @@ from keras.layers.core import  Dropout, Activation, Flatten
 from keras.regularizers import l1,l2,l1_l2
 from keras.layers import Conv1D, MaxPooling1D, Dense, LSTM, Bidirectional, BatchNormalization, MaxPooling2D, AveragePooling1D, Input, Multiply, Add, UpSampling1D
 import time
-
-NUM_THREADS = mp.cpu_count()
 
 # change working directory to script directory
 os.chdir(os.path.dirname(sys.argv[0]))
@@ -936,6 +949,7 @@ def main():
     backbone_region = args.backbone_complementarity_check
     distal_end = args.distal_end_len
     on_target_score_name = args.on_target
+    NUM_THREADS = args.num_threads
 
     #Data Processing
     genome = read_fasta(genome_file)
@@ -1260,5 +1274,6 @@ if __name__ == "__main__":
     parser.add_argument('--blast_org', type=str, default='',  help="Name of the oprganism/s to blast proteins against to identify probable essential genes.")
     parser.add_argument('--distal_end_len', type=int, default=5000,  help="Remove guide RNA located within this distance from the end of the chromosome. Value is dependent on the organism of interest. Note for NGG PAM, enter a value greater than the length of the homology arms.")
     parser.add_argument('--on_target', type=str, default='Doench et al. 2016', help="Model to calculate on-target scores. Options: Doench et al. 2016, CROPSR, DeepGuide (Cas9), DeepGuide (Cas12a), sgRNA_ecoli (Cas9), sgRNA_ecoli (eSpCas9).")
+    parser.add_argument('-n', '--num_threads', type=int, default=1, help="Number of threads to use for computation.")
     args = parser.parse_args()
     main()
