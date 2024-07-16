@@ -394,7 +394,9 @@ def grna_filter(grna_list, glen, pam, orient, seedlen, re_grna_list, polyG_len, 
         for i in range(len(grna_list_mm_intg)):
             grna_list_mm_intg[i] = grna_list_mm_intg[i] + get_gene_info(gtable, grna_list_mm_intg[i][1], grna_list_mm_intg[i][2], grna_list_mm_intg[i][3], grna_list_mm_intg[i][4], gdenslen)
     
-    return grna_list_mm_intg
+        return grna_list_mm_intg
+    else:
+        raise ValueError("No gRNAs are left with the specified parameters. Please reduce the stringency (Edit distance, Seed length, etc.) and refer to the sample parameter table here - https://biofoundry.web.illinois.edu/copies/docs.")
 
 def hr_filter(data, glen, pam, genome, hr_len, RE_hr, polyG_hr, polyT_hr):
     for i in range(len(data)):
