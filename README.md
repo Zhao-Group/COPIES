@@ -7,11 +7,14 @@
 This repository accompanies the work ["CRISPR-COPIES: An in silico platform for discovery of neutral integration sites for CRISPR/Cas-facilitated gene integration"](https://www.biorxiv.org/content/10.1101/2023.09.06.556564v1.abstract).
 
 ### Web Application
-You can use `CRISPR-COPIES` through our web interface. Visit us at [CRISPR-COPIES](https://biofoundry.web.illinois.edu/copies/). 
+You can use `CRISPR-COPIES` through our web interface. Visit us at [CRISPR-COPIES](https://biofoundry.web.illinois.edu/copies/). You can also run the code on Google Colab by following these steps: 
+1. Upload `COPIES.ipynb`, 
+2. Clone the repository, 
+3. Follow the instructions to download BLAST, install the necessary packages, and run the command line tool for your organism/strain of interest. 
 
 Note: We have restricted the web interface to prokaryotic and small eukaryotic genomes. We advise you to use our command line option for genomes greater than 120 Mb in size as significant time and computation resources are required. 
 
-### Command Line Tool
+### Command Line Tool on Linux
 
 - [Installation](#installation)
 - [Usage](#usage)
