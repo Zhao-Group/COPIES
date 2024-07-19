@@ -6,7 +6,7 @@
 ### THE PAPER!
 This repository accompanies the work ["CRISPR-COPIES: An in silico platform for discovery of neutral integration sites for CRISPR/Cas-facilitated gene integration"](https://www.biorxiv.org/content/10.1101/2023.09.06.556564v1.abstract).
 
-### Web Application
+### Web Application & Google Colab
 You can use `CRISPR-COPIES` through our web interface. Visit us at [CRISPR-COPIES](https://biofoundry.web.illinois.edu/copies/). You can also run the code on Google Colab by following these steps: 
 1. Upload `COPIES.ipynb`, 
 2. Clone the repository, 
