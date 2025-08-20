@@ -20,6 +20,7 @@
 ##    - https://github.com/zhangchonglab/sgRNA-cleavage-activity-prediction
 
 import random,sys,os
+from helpers import import_gff_file, gff3_to_gene_table
 
 #paths
 # directories will be relative to script source.
@@ -955,10 +956,25 @@ def main():
 
     #Data Processing
     genome = read_fasta(genome_file)
-    total_gene_table = pd.read_csv(gene_file, sep = '\t')
+    if ("gff" in gene_file):
+        # Read in the .gff3 file and write a custom gene table file
+        total_gene_gff = import_gff_file(gene_file)
+        total_gene_table = gff3_to_gene_table(total_gene_gff)
+        print(total_gene_table[0:100])
+        #total_gene_table = #pd.read_csv(gene_file_custom_df, sep = '\t')
+        #total_gene_gff['Accession'] = total_gene_gff['chromosome']
+        #refined_gene_table=total_gene_gff
+        #gene_gff = total_gene_gff[total_gene_table['assembly_unit'] == 'Primary Assembly'][['# feature','class','chromosome','genomic_accession','start','end','strand','locus_tag','product_accession']].reset_index(drop=True)
+
+    else:
+        total_gene_table = pd.read_csv(gene_file, sep = '\t')
+        ### gene table
     gene_table = total_gene_table[total_gene_table['assembly_unit'] == 'Primary Assembly'][['# feature','class','chromosome','genomic_accession','start','end','strand','locus_tag','product_accession']].reset_index(drop=True)
     gene_table.columns = ['# feature','class','#Name','Accession', 'Start', 'Stop', 'Strand', 'Locus tag','Protein product']
     refined_gene_table = gene_table[gene_table['# feature']=='gene'][['Accession', 'Start', 'Stop', 'Strand', 'Locus tag']].reset_index(drop=True)
+    
+    #gene_table = gff_df[gff_df['# feature']=='gene'][['Accession', 'Start', 'Stop', 'Strand', 'Locus tag']].reset_index(drop=True)
+    
     pam_library = pam_to_search(pam,iupac_code)
     ambiguous_nucleotides = list(iupac_code.keys())[4:]
     if " " in re_grna_list:
