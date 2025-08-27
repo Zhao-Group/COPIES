@@ -1,4 +1,56 @@
 import pandas as pd
+import gffpandas.gffpandas as gffpd
+
+### TO DO: use gffutils or gffpandas?
+def import_gff_pd(gff_file):
+    """
+    Imports and formats a genome annotation file in the GFF Format for use
+    via the gff pandas module
+
+    Args:
+        gff_file (str) - the PATH to the .gff3 file that was input
+    
+    Returns:
+        annotation_df (pd.Dataframe) - a structured pd dataframe containing the relevant attributes as columns
+    """
+    # Read the GFF3 file into a gffpandas object
+    annotation = gffpd.read_gff3(gff_file)
+
+    ### Get only the CDS entries
+    annotation_df = annotation.filter_feature_of_type(['CDS']) 
+
+    # The 'attributes' column contains all key-value pairs
+    # First, explode the attributes into separate columns
+    annotation_df = annotation_df.attributes_to_columns()
+
+    return annotation_df
+
+def gff_to_gene_table(gff_df):
+    """
+    Parses a GFF3 file structured pandas dataframe and extracts gene information to create a gene_table dataframe.
+
+    Args:
+        gff_file (str): Path to the input GFF3 data_frame.
+    
+    Returns
+        gt_df (pd.Dataframe): Dataframe containing the gene table information in relevant format.
+    """
+    # Create an empty df with the relevant columns that we need
+    gt_df = pd.DataFrame(columns=['seq_id','start','end','strand','locus_tag','gene_name','product'])
+    new_data = []
+
+    # for each row in the gff df proces for rows we need
+    for index, row in gff_df.iterrows():
+        #print(row.product)
+        new_data.append([row.seq_id,row.start,row.end,row.strand,row.locus_tag,row.gene,row['product']])
+
+    # Add the row to the dataframe
+    new_df = pd.DataFrame(new_data,columns=['seq_id','start','end','strand','locus_tag','gene_name','product'])
+    gt_df = pd.concat([gt_df, new_df], ignore_index=True)
+
+    return gt_df
+
+
 def import_gff_file(gff):
     '''
     imports and formats a genome annotation file in the GFF format for use
@@ -49,8 +101,17 @@ def gff3_to_gene_table(gff_df):
             # Extract locus_tag, gene_name, and product from qualifiers
             locus_tag = feature.qualifiers.split(";")[1]#.get("locus_tag", [""])[0]
             gene_name = feature.qualifiers.split(";")[2]#.get("gene", [""])[0]  # Use "gene" as per some examples
-            product = feature.qualifiers.split(";")[3]#.get("product", [""])[0]
-                    
+
+            print(feature.qualifiers.split(";"))
+
+            ### TO DO: This doesn't necessarily work for protein product
+            prodIdx = [index for index, value in enumerate(feature.qualifiers.split(";")) if ('product=' in value)] 
+            #print(prodIdx)
+            if (prodIdx != []):
+                product = feature.qualifiers.split(";")[prodIdx[0]] #qualifiers.split(";")[3]#.get("product", [""])[0]
+            else:
+                product = ''
+                
             # Append the extracted information to post to the gene table
             new_data.append([seq_id,start,end,strand,locus_tag,gene_name,product])
 
