@@ -20,7 +20,7 @@
 ##    - https://github.com/zhangchonglab/sgRNA-cleavage-activity-prediction
 
 import random,sys,os
-from helpers import import_gff_pd, gff_to_gene_table
+from helpers import import_gff_file, gff3_to_gene_table
 
 #paths
 # directories will be relative to script source.
@@ -958,8 +958,8 @@ def main():
     genome = read_fasta(genome_file)
     if ("gff" in gene_file):
         # Read in the .gff3 file and write a custom gene table file
-        total_gene_gff = import_gff_pd(gene_file)
-        total_gene_table = gff_to_gene_table(total_gene_gff)
+        total_gene_gff = import_gff_file(gene_file)
+        total_gene_table = gff3_to_gene_table(total_gene_gff)
         print(total_gene_table[0:100])
         #total_gene_table = #pd.read_csv(gene_file_custom_df, sep = '\t')
         #total_gene_gff['Accession'] = total_gene_gff['chromosome']
